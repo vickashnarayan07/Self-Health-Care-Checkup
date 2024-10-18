@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Self General Body Checkup</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap">
+<style>
+    body {
+        font-family: 'Lilita One', cursive;
+    }
+    #container {
+        width: 50%;
+        margin: 0 auto;
+        text-align: center;
+    }
+    select {
+        padding: 10px;
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+    .instruction {
+        text-align: left;
+        margin-bottom: 20px;
+    }
+    .button {
+        padding: 10px 20px;
+        font-size: 16px;
+        margin-right: 10px;
+    }
+</style>
+</head>
+<body>
+<div id="container">
+    <h2>Select the following one by one for self general body checkup:</h2>
+    <select id="symptomSelect" onchange="showInstruction()">
+        <option value="default">Select Checkup</option>
+        <option value="pallor">Pallor</option>
+        <option value="icterus">Icterus</option>
+        <option value="clubbing">Clubbing</option>
+        <option value="cyanosis">Cyanosis</option>
+        <option value="edema">Edema</option>
+    </select>
+    <div id="instruction" class="instruction"></div>
+    <button class="button" id="presentButton" onclick="showResult('present')">Present</button>
+    <button class="button" id="absentButton" onclick="showResult('absent')">Absent</button>
+</div>
+<script>
+    function showInstruction() {
+        var selectBox = document.getElementById("symptomSelect");
+        var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+        var instructionDiv = document.getElementById("instruction");
+
+        if (selectedValue === "default") {
+            instructionDiv.innerHTML = "";
+        } else if (selectedValue === "pallor") {
+            instructionDiv.innerHTML = "To check for Pallor, look upwards, gently pull your lower eyelid, and examine the color of the inner part of your lower eyelid.<br>If the inner lower eyelid is red or pink then the person is normal, if it is pale red in color then abnormal (they may have anemia), if it is pale white in color then it is very abnormal (severe anemia). Click on Present if it is visible and absent if everything is normal.";
+        } else if (selectedValue === "icterus") {
+            instructionDiv.innerHTML = "To check for Icterus, look downwards, gently pull your upper eyelids upwards, and examine the color of the white part in the inner eyes.<br>If it is white in color then the person is normal, if it is yellowish in colour you may be suffering from jaundice or liver disease. Click on Present if it is visible and absent if everything is normal.";
+        } else if (selectedValue === "clubbing") {
+            instructionDiv.innerHTML = "To check for Clubbing, put your index finger or thumbnail against the nail of the other index finger or thumb, and look for the diamond-shaped space between the fingers.<br>If there is diamond space in between two joined index fingers then there is no clubbing, if the person has no diamond space between the two joined index fingers then that person would be having clubbing. Click on Present if it is visible and absent if everything is normal.";
+        } else if (selectedValue === "cyanosis") {
+            instructionDiv.innerHTML = "To check for Cyanosis, look at the tip of your tongue inside your mouth (oral mucosa), earlobes, fingertips, and toes.<br>If there is bluish colour then you are suffering from cyanosis. Click on Present. If not, click on Absent.";
+        } else if (selectedValue === "edema") {
+            instructionDiv.innerHTML = "To check for Edema, press on your prominent bone on the inner side of the foot for 10 seconds, and examine for any depression after removing your hand.<br>When the person removes the hand and if any depression is seen that person may have edema. Click on Present. If no depression is seen click on Absent.";
+        }
+    }
+
+    function showResult(status) {
+        var selectBox = document.getElementById("symptomSelect");
+        var selectedText = selectBox.options[selectBox.selectedIndex].text;
+        var resultDiv = document.getElementById("instruction");
+
+        if (status === "present") {
+            if (selectedText === "Pallor") {
+                resultDiv.innerHTML += "<br>" + selectedText + " is present. This may indicate anemia. Possible diseases: Iron deficiency anemia, Vitamin B12 deficiency anemia, Folic acid deficiency anemia. What can be done: Dietary changes, iron supplements, vitamin B12 supplements, folic acid supplements.";
+            } else if (selectedText === "Icterus") {
+                resultDiv.innerHTML += "<br>" + selectedText + " is present. This may indicate jaundice or liver disease. Possible diseases: Hepatitis, Cirrhosis, Gilbert's syndrome. What can be done: Medical treatment, lifestyle changes, liver transplant (in severe cases).";
+            } else if (selectedText === "Clubbing") {
+                resultDiv.innerHTML += "<br>" + selectedText + " is present. This may indicate lung disease. Possible diseases: Chronic obstructive pulmonary disease (COPD), Interstitial lung disease, Bronchiectasis. What can be done: Smoking cessation, oxygen therapy, pulmonary rehabilitation.";
+            } else if (selectedText === "Cyanosis") {
+                resultDiv.innerHTML += "<br>" + selectedText + " is present. This may indicate hypoxia, pulmonary disease, heart failure, or vasoconstriction due to excessive cold. Possible diseases: Pulmonary embolism, Congestive heart failure, Pneumonia. What can be done: Oxygen therapy, medication, lifestyle changes.";
+            } else if (selectedText === "Edema") {
+                resultDiv.innerHTML += "<br>" + selectedText + " is present. This may indicate local injury, infection, or heart failure. Possible diseases: Heart failure, Kidney disease, Liver disease. What can be done: Diuretics, medication, lifestyle changes.";
+            }
+        } else if (status === "absent") {
+            resultDiv.innerHTML += "<br>" + selectedText + " is absent. You are normal.";
+        }
+    }
+</script>
+</body>
+</html>
